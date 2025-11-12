@@ -19,6 +19,10 @@ This guide describes my take on an installation of **Nextcloud All-in-One (AIO)*
 - Avoid snapshotting large datasets while AIO backups are running.
 
 ## Proxmox Configuration
+### 0. Create the ZFS mirror pool for Nextcloud data
+In Proxmox Web UI → Datacenter → Storage → ZFS → Create: ZFS, create a new pool named nc using your two HDDs in mirror mode. (Or your preferred ZFS setup)
+This pool will later hold the datasets /nc/userdata and /nc/backup used by VirtioFS.
+
 ### 1. **Proxmox host (ZFS layout)**
 | Purpose | ZFS Pool | Path | Notes |
 |----------|-----------|------|------|
@@ -48,6 +52,7 @@ Repeat for the backup directory:
 | **Directory** | `/nc/backup` |
 
 You should now see both `nc-userdata` and `nc-backup` listed under **Datacenter → Storage**.
+There were a lot of talk about "Mount-point" which has been removed in the newer version I used. ID is enough and is handled automatically in the next step.
 
 ## VM configuration (Debian 12 / Proxmox 8.4)
 
