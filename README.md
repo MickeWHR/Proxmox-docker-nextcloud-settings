@@ -1,5 +1,5 @@
 # Proxmox-docker-nextcloud-settings
-A description of how I deployed Nextcloud for future references.
+A description of how I deployed Nextcloud for future references. I struggled with various AI and the Git-hub documentation to get it running, hopefully it helps someone. Or please do leave feedback if its nuts. It doesn't cover installation of the VM or Docker, those are prerequisites.
 
 This guide describes my take on an installation of **Nextcloud All-in-One (AIO)** inside a **Debian VM running on Proxmox**, using:
 - **ZFS mirror on SSDs** for system, VM disks, and Docker performance "rpool"
@@ -13,12 +13,12 @@ This guide describes my take on an installation of **Nextcloud All-in-One (AIO)*
 - Minimal performance loss — SSD for containers, HDD for large data
 
 ### ⚠️ Warnings
-- Nextcloud internal backup doesn't do external folders, have to solve it inside VM or preferaby through proxmox.
+- Nextcloud internal backup doesn't do external folders, you should solve it through proxmox ZFS. (I already need a solution for other pools in the system, this is streamlined for my usecase)
 - Do **not** let `NEXTCLOUD_DATADIR` and `NEXTCLOUD_MOUNT` point to the same path — it breaks AIO confinement rules.
 - Always test mounts before starting containers.
 - Avoid snapshotting large datasets while AIO backups are running.
 
-## 🧩 Proxmox Configuration
+## Proxmox Configuration
 ### 1. **Proxmox host (ZFS layout)**
 | Purpose | ZFS Pool | Path | Notes |
 |----------|-----------|------|------|
@@ -49,7 +49,7 @@ Repeat for the backup directory:
 
 You should now see both `nc-userdata` and `nc-backup` listed under **Datacenter → Storage**.
 
-## 🧩 VM configuration (Debian 12 / Proxmox 8.4)
+## VM configuration (Debian 12 / Proxmox 8.4)
 
 ### **VirtioFS mappings (Proxmox → VM)**
 | Proxmox Path | Directory ID | VM Path | Purpose |
