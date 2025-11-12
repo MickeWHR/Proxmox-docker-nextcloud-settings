@@ -39,20 +39,17 @@ In **Proxmox Web UI**:
 
 | Setting | Value |
 |----------|--------|
-| **ID** | `nc-userdata` |
-| **Directory** | `/nc/userdata` |
-| **Content** | *Unchecked (none needed)* |
-| **Nodes** | *(select your host)* |
-| **Enable** | ✅ |
+| **Name / ID** | `nc-userdata` |
+| **Path** | `/nc/userdata` |
 
 Repeat for the backup directory:
 | Setting | Value |
 |----------|--------|
-| **ID** | `nc-backup` |
-| **Directory** | `/nc/backup` |
+| **Name / ID** | `nc-backup` |
+| **Path** | `/nc/backup` |
 
 You should now see both `nc-userdata` and `nc-backup` listed under **Datacenter → Storage**.
-There were a lot of talk about "Mount-point" which has been removed in the newer version I used. ID is enough and is handled automatically in the next step.
+There were a lot of talk about "Mount-point" which has been removed in the newer version I used. Name is enough and is handled automatically in the next step.
 
 ## VM configuration (Debian 12 / Proxmox 8.4)
 
@@ -68,6 +65,7 @@ In **Proxmox GUI → VM → Hardware → Add → VirtioFS**:
 - **Directory ID:** `nc-backup` → `/nc/backup`
 
 ### 2. Mount them inside the VM
+(Optional, test-mount before editing fstab)
 Edit `/etc/fstab` in the Debian VM and add to the end of file:
 nc-userdata   /mnt/ncdata/vm-userdata  virtiofs  rw,nofail,noatime  0 0
 nc-backup     /mnt/ncdata/vm-backup    virtiofs  rw,nofail,noatime  0 0
