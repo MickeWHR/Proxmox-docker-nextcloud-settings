@@ -17,6 +17,7 @@ This guide describes my take on an installation of **Nextcloud All-in-One (AIO)*
 - Do **not** let `NEXTCLOUD_DATADIR` and `NEXTCLOUD_MOUNT` point to the same path — it breaks AIO confinement rules.
 - Always test mounts before starting containers.
 - Avoid snapshotting large datasets while AIO backups are running.
+- Check folder chown and chmod before other trouble seeking, in my instance 
 
 ## Proxmox Configuration
 ### 0. Create the ZFS mirror pool for Nextcloud data
