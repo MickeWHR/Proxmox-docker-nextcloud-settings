@@ -68,7 +68,9 @@ In **Proxmox GUI → VM → Hardware → Add → VirtioFS**:
 ### 2. Mount them inside the VM
 (Optional, test-mount before editing fstab)
 Edit `/etc/fstab` in the Debian VM and add to the end of file:
+
 nc-userdata   /mnt/ncdata/vm-userdata  virtiofs  rw,nofail,noatime  0 0
+
 nc-backup     /mnt/ncdata/vm-backup    virtiofs  rw,nofail,noatime  0 0
 
 Run systemctl daemon-reload
